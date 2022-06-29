@@ -7,8 +7,8 @@ pipeline {
   stages {
        stage('initial') {
       steps {
-       // sh 'sudo yum install git -y'
-       // sh 'sudo yum install java-1.8* -y'
+        sh 'sudo yum install git -y'
+        sh 'sudo yum install java-1.8* -y'
            sh 'which git'
           // sh 'sudo yum install updates -y'
        }
