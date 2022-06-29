@@ -5,19 +5,19 @@ pipeline {
     }
   }
   stages {
-       stage('initial') {
-      steps {
-        sh 'sudo yum install git -y'
-        sh 'sudo yum install java-1.8* -y'
-           sh 'which git'
+      // stage('initial') {
+     // steps {
+       // sh 'sudo yum install git -y'
+        //sh 'sudo yum install java-1.8* -y'
+         //  sh 'which git'
           // sh 'sudo yum install updates -y'
-       }
-    }
-   // stage('checkout scm') {
-    //  steps {
-      //checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/kasiteja007/simple-java-maven-app.git']]])   
-      //}
+      // }
     //}
+    stage('checkout scm') {
+      steps {
+      checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/kasiteja007/simple-java-maven-app.git']]])   
+      }
+    }
     stage('Build') {
       parallel {
         stage ('First Test') {
