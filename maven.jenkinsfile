@@ -1,0 +1,40 @@
+pipeline {
+     agent {
+    node {
+      label 'aws'
+    }
+  }
+  stages {
+       stage('initial') {
+      steps {
+       // sh 'sudo yum install git -y'
+       // sh 'sudo yum install java-1.8* -y'
+           sh 'which git'
+          // sh 'sudo yum install updates -y'
+       }
+    }
+    stage('checkout scm') {
+      steps {
+      checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/kasiteja007/simple-java-maven-app.git']]])   
+      }
+    }
+    stage('Build') {
+      parallel {
+        stage ('First Test') {
+          steps {
+            echo 'Run First Test here...'
+          }
+        }
+        stage('Second Test') {
+          tools {
+				maven 'Maven1' 
+				
+			}
+            steps {
+                sh 'mvn -B -DskipTests clean package'
+            }
+          }
+        }
+      }
+    }
+  }
