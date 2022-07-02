@@ -6,6 +6,12 @@ pipeline {
         }
     }
     stages {
+        stage("verification"){
+            steps{
+                sh 'yum install java-1.8* git -y'
+                sh 'which git'
+            }
+        }
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
